@@ -17,13 +17,13 @@ let userGoals = {
 };
 
 const questions = [
-  "What is your name?",
-  "What is your age?",
-  "What is your current weight (in pounds)?",
-  "What is your height (e.g., 5'7)?",
-  "What is your sex? (male/female/other)",
-  "What is your fitness level? (beginner/intermediate/advanced)",
-  "What is your primary fitness goal?",
+  "YOOO wsg g, was your name?",
+  "fye. NO weird shi, but how old are you?",
+  "BET wb current weight (in pounds)?",
+  "Wild. okay wat about your height (e.g., 5'7)?",
+  "Igh n wat is your sex? (male/female/other)",
+  "Wat about your fitness level? (beginner/intermediate/advanced)",
+  "Igh, finally wat is your primary fitness goal? What we tryna achieve jow",
 ];
 
 function ProfileBuilder() {

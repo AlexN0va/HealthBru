@@ -1,4 +1,5 @@
 import { Calendar, Home, BarChart3 } from "lucide-react"
+import Logo from "./Logo"
 
 import {
   Sidebar,
@@ -26,8 +27,8 @@ const items = [
     description: "Track your progress"
   },
   {
-    title: "In-depth",
-    url: "/depth-plan",
+    title: "Calendar",
+    url: "/calendar",
     icon: Calendar,
     description: "Detailed workout calendar"
   },
@@ -39,17 +40,7 @@ export function AppSidebar() {
       <SidebarContent className="p-6">
         {/* Logo/Brand Section */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">HB</span>
-            </div>
-            <div>
-              <h2 className="text-xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                HealthBru
-              </h2>
-              <p className="text-purple-300 text-sm">Fitness Journey</p>
-            </div>
-          </div>
+          <Logo size="default" />
         </div>
 
         <SidebarGroup>

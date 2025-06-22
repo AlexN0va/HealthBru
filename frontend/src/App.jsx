@@ -14,6 +14,7 @@ function App() {
         <Route path="/home" element={<Home/>} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/depth-plan" element={<DepthPlan />} />
+        <Route path="/calendar" element={<DepthPlan />} />
       </Routes>
     </Router>
   );
