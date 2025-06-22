@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
-from google_calendar.calendar_api import get_upcoming_events
+#from google_calendar.calendar_api import get_upcoming_events
 
 
 
@@ -21,6 +21,7 @@ origins = [
 # Define the expected request body
 class UserGoals(BaseModel):
     name: str
+    email: str
     age: int
     weight: int
     height: int
