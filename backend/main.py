@@ -29,10 +29,29 @@ class UserGoals(BaseModel):
     name: str
     age: int
     weight: int
-    height: int
+    height: str  # Changed from int to str to accept "5'7" format
     sex: str
     fitnessLevel: str
     fitnessGoal: str
+
+def convert_height_to_inches(height_str: str) -> int:
+    """Convert height from '5'7' format to total inches"""
+    try:
+        # Handle formats like "5'7", "5'7\"", "5' 7", "5' 7\""
+        height_str = height_str.strip().replace('"', '').replace("'", "'")
+        
+        # Split by single quote
+        if "'" in height_str:
+            parts = height_str.split("'")
+            feet = int(parts[0].strip())
+            inches = int(parts[1].strip()) if len(parts) > 1 and parts[1].strip() else 0
+            return feet * 12 + inches
+        else:
+            # If no single quote, assume it's already in inches
+            return int(height_str)
+    except (ValueError, IndexError):
+        # Default fallback if parsing fails
+        return 67  # Default to 5'7"
 
 @app.post("/")
 def receive_user_goals(goals: UserGoals):
@@ -376,7 +395,7 @@ def call_groq(goals: UserGoals):
             # Set a user message for the assistant to respond to.
             {
                 "role": "user",
-                "content": f"Create a one week fitness plan, including diet, and a workout split. For the sample meal plan, include some snacks you can easily buy at the grocery store, like specific protein bars. The inputted weight is in pounds, and height is in inches. Given name: {goals.name}, age: {goals.age}, current weight (lb): {goals.weight}, height (in): {goals.height}, sex: {goals.sex}, fitness level: {goals.fitnessLevel}, and primary fitness goal: {goals.fitnessGoal}. Make sure to clearly specify which workout happens on which day of the week (Monday, Tuesday, Wednesday, etc.). For each workout day, list the specific exercises with sets and reps like this: 'Bench Press: 3 sets x 12 reps'. Be specific about muscle groups - say 'Chest & Triceps' instead of just 'strength training'. IMPORTANT: Include the estimated duration in minutes for each workout day. Format each day like this: 'Monday: Chest & Triceps workout (75 minutes) - Bench Press: 3 sets x 12 reps, Incline Dumbbell Press: 3 sets x 10 reps'. For rest days, you can say 'Rest day (0 minutes)' or 'Active Recovery (30 minutes)'."
+                "content": f"Create a one week fitness plan, including diet, and a workout split. For the sample meal plan, include some snacks you can easily buy at the grocery store, like specific protein bars. The inputted weight is in pounds, and height is in inches. Given name: {goals.name}, age: {goals.age}, current weight (lb): {goals.weight}, height (in): {convert_height_to_inches(goals.height)}, sex: {goals.sex}, fitness level: {goals.fitnessLevel}, and primary fitness goal: {goals.fitnessGoal}. Make sure to clearly specify which workout happens on which day of the week (Monday, Tuesday, Wednesday, etc.). For each workout day, list the specific exercises with sets and reps like this: 'Bench Press: 3 sets x 12 reps'. Be specific about muscle groups - say 'Chest & Triceps' instead of just 'strength training'. IMPORTANT: Include the estimated duration in minutes for each workout day. Format each day like this: 'Monday: Chest & Triceps workout (75 minutes) - Bench Press: 3 sets x 12 reps, Incline Dumbbell Press: 3 sets x 10 reps'. For rest days, you can say 'Rest day (0 minutes)' or 'Active Recovery (30 minutes)'."
             }
         ],
 
