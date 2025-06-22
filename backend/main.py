@@ -3,12 +3,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
-from google_calendar.calendar_api import get_upcoming_events
+#from google_calendar.calendar_api import get_upcoming_events
 
+from dotenv import load_dotenv
 import os
 from groq import Groq
 
-
+load_dotenv()
 
 app  = FastAPI(
     title="Healthbru",
@@ -50,7 +51,7 @@ app.add_middleware(
 def call_groq(goals: UserGoals):
     # groq
     client = Groq(
-        api_key=os.environ.get("GROQ_API_KEY"),
+        api_key = os.getenv("GROQ_API_KEY")
     )
 
     chat_completion = client.chat.completions.create(
