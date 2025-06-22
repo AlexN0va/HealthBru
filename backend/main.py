@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
+from google_calendar.calendar_api import get_upcoming_events
 
 import os
 from groq import Groq
@@ -45,6 +46,7 @@ app.add_middleware(
 # def read_root():
 #     return {"message": "Welcome to the team API!"}
 
+
 def call_groq(goals: UserGoals):
     # groq
     client = Groq(
@@ -76,3 +78,9 @@ def call_groq(goals: UserGoals):
 
     # Print the completion returned by the LLM.
     print(chat_completion.choices[0].message.content)
+
+
+@app.get("/events")
+def read_calendar_events():
+    events = get_upcoming_events()
+    return {"events": events}
