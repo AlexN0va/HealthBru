@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List
+from google_calendar.calendar_api import get_upcoming_events
 
 
 
@@ -42,3 +43,7 @@ app.add_middleware(
 # def read_root():
 #     return {"message": "Welcome to the team API!"}
 
+@app.get("/events")
+def read_calendar_events():
+    events = get_upcoming_events()
+    return {"events": events}
