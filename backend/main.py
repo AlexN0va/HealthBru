@@ -5,11 +5,11 @@ from pydantic import BaseModel
 from typing import List
 #from google_calendar.calendar_api import get_upcoming_events
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 import os
 from groq import Groq
 
-load_dotenv()
+load_dotenv(find_dotenv())
 
 app  = FastAPI(
     title="Healthbru",

@@ -37,14 +37,15 @@ function ProfileBuilder() {
   async function handleComplete(msgs) {
 
   userGoals.name = msgs[1]?.text || '';
-  userGoals.age = parseInt(msgs[3]?.text, 10) || 0;
-  userGoals.weight = parseInt(msgs[5]?.text, 10) || 0;
-  userGoals.height = parseInt(msgs[7]?.text, 10) || 0;
-  userGoals.fitnessGoal = msgs[9]?.text || '';
+  userGoals.email = msgs[3]?.text || '';
+  userGoals.age = parseInt(msgs[5]?.text, 10) || 0;
+  userGoals.weight = parseInt(msgs[7]?.text, 10) || 0;
+  userGoals.height = parseInt(msgs[9]?.text, 10) || 0;
+  userGoals.fitnessGoal = msgs[11]?.text || '';
 
   console.log("User Goals:", userGoals);
 
-    const mainURL =  "http://127.0.0.1:8000" ;
+    const mainURL =  "http://127.0.0.1:8000/" ;
 
     try { // catch error 
       const response = await axios.post(mainURL, JSON.stringify(userGoals), { // asynchronously sends post to server, but first we need to turn javascript object into a JSON type
