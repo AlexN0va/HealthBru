@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 let userGoals = {
   name: '',
@@ -22,13 +24,15 @@ const questions = [
 ];
 
 function ProfileBuilder() {
+  
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [step, setStep] = useState(0); 
   const [messages, setMessages] = useState([
     { sender: "HealthBru", text: "What is your name?" },
   ]);
 
-async function handleComplete(msgs) {
+  async function handleComplete(msgs) {
 
   userGoals.name = msgs[1]?.text || '';
   userGoals.age = parseInt(msgs[3]?.text, 10) || 0;
@@ -50,6 +54,7 @@ async function handleComplete(msgs) {
 
       if (response.status === 200) { // success
         console.log("Data uploaded successfully");
+        navigate("/home"); // navigate to home page after successful upload
       }
     } catch (error) {
       console.error("Error uploading data:", error);
@@ -63,7 +68,7 @@ function handleNext() {
   const newMessages = [...messages, { sender: "User", text: input }];
 
   if (nextStep < questions.length) {
-    newMessages.push({ sender: "Vinora", text: questions[nextStep] });
+    newMessages.push({ sender: "HealthBru", text: questions[nextStep] });
     setMessages(newMessages);
   } else {
     setMessages(newMessages);
