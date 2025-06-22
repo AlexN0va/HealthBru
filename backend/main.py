@@ -24,6 +24,7 @@ origins = [
 # Define the expected request body
 class UserGoals(BaseModel):
     name: str
+    email: str
     age: int
     weight: int
     height: int

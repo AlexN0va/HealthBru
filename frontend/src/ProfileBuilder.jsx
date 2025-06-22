@@ -7,6 +7,7 @@ import axios from "axios";
 
 let userGoals = {
   name: '',
+  email: '',
   age: 0,
   weight: 0,
   height: 0,
@@ -15,6 +16,7 @@ let userGoals = {
 
 const questions = [
   "What is your name?",
+  "What is your gmail",
   "What is your age?",
   "What is your current weight?",
   "What is your height?(inches)" ,
@@ -113,7 +115,7 @@ function handleNext() {
       </div>
 
       <span className="text-sm text-muted-foreground ml-4">
-        Step {step} of 5
+        Step {step} of 6
       </span>
 
       <div className="mt-2 h-1 w-full bg-gray-200 rounded-full">
