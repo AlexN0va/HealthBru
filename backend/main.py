@@ -14,10 +14,21 @@ app  = FastAPI(
 )
 
 origins = [
-    "https://localhost:3000" 
+    "http://localhost:5173" 
 ]
 
+# Define the expected request body
+class UserGoals(BaseModel):
+    name: str
+    age: int
+    weight: int
+    height: int
+    fitnessGoal: str
 
+@app.post("/")
+def receive_user_goals(goals: UserGoals):
+    print("Received goals:", goals)
+    return {"message": "Data received successfully"}
 
 app.add_middleware(
     CORSMiddleware,

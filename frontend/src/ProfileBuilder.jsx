@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import axios from "axios";
 
 let userGoals = {
   name: '',
@@ -27,7 +28,7 @@ function ProfileBuilder() {
     { sender: "HealthBru", text: "What is your name?" },
   ]);
 
-function handleComplete(msgs) {
+async function handleComplete(msgs) {
 
   userGoals.name = msgs[1]?.text || '';
   userGoals.age = parseInt(msgs[3]?.text, 10) || 0;
@@ -36,6 +37,23 @@ function handleComplete(msgs) {
   userGoals.fitnessGoal = msgs[9]?.text || '';
 
   console.log("User Goals:", userGoals);
+
+    const mainURL =  "http://127.0.0.1:8000" ;
+
+    try { // catch error 
+      const response = await axios.post(mainURL, JSON.stringify(userGoals), { // asynchronously sends post to server, but first we need to turn javascript object into a JSON type
+        responseType: 'blob', // expect binary data in response
+        headers: {
+          "Content-Type": 'application/json', // what type of data to expect
+        },
+      });
+
+      if (response.status === 200) { // success
+        console.log("Data uploaded successfully");
+      }
+    } catch (error) {
+      console.error("Error uploading data:", error);
+    }
 }
 
 function handleNext() {
